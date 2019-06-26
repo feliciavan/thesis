@@ -28,7 +28,7 @@ with open('users.csv') as csvfile:
         obj.set_password(row['password'])
         obj.save()
         if row['group']=="student":
-            Student.objects.get_or_create(person=obj,number=str(stuno).zfill(2), class_name="Commun. Eng.", gpa = row['gpa'])
+            Student.objects.get_or_create(person=obj,number=str(stuno).zfill(3), class_name="Commun. Eng.", gpa = row['gpa'])
             stuno += 1
         else:
             Teacher.objects.get_or_create(person=obj)
