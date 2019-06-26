@@ -1,0 +1,22 @@
+img {
+  margin: auto;
+  width: 130px;
+  display: block;
+}
+
+.card {
+  width: 23rem;
+  margin: auto;
+}
+
+.card-body {
+  margin: 5px;
+}
+
+div[class="form-group"] {
+  padding: 5px;
+}
+
+.btn {
+  margin-top: 10px;
+}

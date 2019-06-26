@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{% static "selection/style_congrats.css" %}">
+</head>
+<body>
+<p>Dear {{student.person.first_name}} {{student.person.last_name}},</p>
+<p>Congratulations! Your thesis topic is:</p>
+<p><b>{{topic}}</b>.</p>
+<p>You can get in touch with your supervisor {% if teacher.title %}<span id='title'>{{teacher.title}}</span>{% endif %} {{teacher.person.first_name}} {{teacher.person.last_name}} via {{teacher.person.email}}.</p>
+<p>Please see more details at Selection of Thesis Topic (SOTT) Website. </p>
+<p>Thank you.<br/>
+Have a nice day.<br/>
+SOTT (Selection of Thesis Topic)<br/>
+https://selection-of-thesis-topic.herokuapp.com</p>
+</body>
+</html>

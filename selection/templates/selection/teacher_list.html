@@ -1,0 +1,90 @@
+{% extends "selection/base.html" %}
+{% load static %}
+
+{% block title %}
+  Topic List
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "selection/style_teacher_list.css" %}">
+<script src="{% static "selection/teacher_list.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+  {% if message %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-auto mr-auto">
+      {% if topics %}<span id="first"></span>{% else %}<div>No topic.</div>{% endif %}
+    </div>
+    <div class="col-auto">
+      <a href="{% url 'myinfo' user.id %}" id="userinfo">{{user.username}}</a><a href="{% url 'logout' %}" class="btn btn-secondary logout">log out</a>
+    </div>
+  </div>
+
+  {% for topic in topics %}
+  <div class="topic" id="showtopic">
+    <div><a class="topic_num" href="{% url 'topic' topic.id %}">Topic {{ forloop.counter }}: {{ topic.title }}</a></div>
+    {% if topic.taker.all %}
+
+      {% if topic.taker.all.count == 1 %}
+      <table class="table word">
+        <tbody>
+          <tr>
+            <td>No. {{topic.taker.first.number}}</td>
+            <td>{{topic.taker.first.person.first_name}} {{topic.taker.first.person.last_name}}</td>
+            <td>{{topic.taker.first.person.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+      {% else %}
+      <div class="word" id="second"></div>
+      <form action ="{% url 'students' topic.id %}" method="post">
+      {% csrf_token %}
+      {% for student in topic.taker.all %}
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="student" value="{{ student.number }}">
+          <a href="{% url 'myinfo' student.person.id %}" class="word">No. {{student.number}} &nbsp; {{student.person.first_name}} {{student.person.last_name}}</a>
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-info emailbtn" onclick="email()">Select</button>
+      </form>
+      {% endif %}
+    {% else %}
+      <span class="word" id="third"></span>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+
+<div class="topic">
+  <div class="topic_num">Add a new topic</div>
+  <form action="{% url 'add' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      Title
+      <input type="text" class="form-control" placeholder="Title" name="title" id="title">
+    </div>
+    <div class="form-group">
+      Requirements
+      <textarea class="form-control"  rows="3" placeholder="Requirements" name="req" id="req"></textarea>
+    </div>
+    <div class="form-group">
+      Expected Output
+      <input type="text" class="form-control" placeholder="Expected Output" name="output" id="output">
+    </div>
+    <div class="form-group">
+      Tool
+      <input type="text" class="form-control" placeholder="Tool" name="tool" id="tool">
+    </div>
+  <button type="submit" class="btn btn-warning" id="button">Submit</button>
+</form>
+</div>
+{% endblock %}

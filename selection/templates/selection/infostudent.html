@@ -1,0 +1,55 @@
+{% extends "selection/base.html" %}
+{% load static %}
+
+{% block title %}
+  Myinfo
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "selection/style_student.css" %}">
+<script src="{% static "selection/infostudent.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-auto mr-auto"></div>
+  <div class="col-auto">
+    <b id="userinfo">{{user.username}}</b>
+    {% if flag == None or flag == 1 %}
+      <a href="{% url 'index' %}" id="back">Back to full listing</a>
+    {% endif %}
+    <a href="{% url 'logout' %}" class="btn btn-secondary logout">log out</a>
+  </div>
+</div>
+
+  <p><span class="attri">Name: </span>{{student.person.first_name}} {{student.person.last_name}}</p>
+  <p><span class="attri">Student Number: </span>{{student.number}}</p>
+  <p><span class="attri">Class: </span>{{student.class_name}}</p>
+  <p><span class="attri">GPA: </span>{{student.gpa}}</p>
+  {% if flag == 0 or flag == None %}<p><span class="attri">Username: </span>{{student.person.username}}</p>{% endif %}
+  <p><span class="attri">Email: </span>{{student.person.email}}</p>
+  {% if flag == 0 %}
+  <p><span class="attri">Thesis Topic: </span><a href="{% url 'topic' topic.id %}">{{topic.title}}</a></p>
+  {% endif %}
+  {% if flag == 0 or flag == None %}
+  <div id="edit">
+    <div class="topic_num">Edit your profile</div>
+    <form method="post" action="{% url 'myinfo' user.id %}">
+      {% csrf_token %}
+      <div class="form-group">
+        Username
+        <input type="text" class="form-control" placeholder="{{student.person.username}}" name="uname" id="uname">
+      </div>
+      <div class="form-group">
+        Password
+        <input type="text" class="form-control" placeholder="New Password" name="pwd" id="pwd">
+      </div>
+      <div class="form-group">
+        Email
+        <input type="text" class="form-control" placeholder="{{student.person.email}}" name="email" id="email">
+      </div>
+      <button type="submit" class="btn btn-warning" id="button">Submit</button>
+  </form>
+  </div>
+  {% endif %}
+{% endblock %}

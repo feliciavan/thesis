@@ -1,0 +1,51 @@
+{% extends "selection/base.html" %}
+{% load static %}
+
+{% block title %}
+  Teacher {{ user.id }}
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "selection/style_teacher.css" %}">
+<script src="{% static "selection/topic.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-auto mr-auto"></div>
+  <div class="col-auto">
+    <a href="{% url 'myinfo' user.id %}" id="userinfo">{{user.username}}</a>
+    <a href="{% url 'index' %}" id="back">Back to full listing</a><a href="{% url 'logout' %}" class="btn btn-secondary logout">log out</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-5 col-sm-12 align-self-center">
+    {% if teacher.image %}
+    <img src="{{ teacher.image.url }}" alt="{{teacher.person.first_name}} {{teacher.person.last_name}}" title="{{teacher.person.first_name}} {{teacher.person.last_name}}">
+    {% else %}
+    <div id="word">No photo.</div>
+    {% endif %}
+  </div>
+  <div class="col-lg-7 col-sm-12 ">
+    <br>
+    <h3>{{teacher.person.first_name}} {{teacher.person.last_name}}</h3>
+    <br>
+    <p><span class="attri">Degree: </span>{{teacher.degree}}</p>
+    <p><span class="attri">Title: </span>{{teacher.title}}</p>
+    <p><span class="attri">Major: </span>{{teacher.major}}</p>
+    <p><span class="attri">Graduated University: </span>{{teacher.uni}}</p>
+    <p><span class="attri">Email: </span>{{teacher.person.email}}</p>
+  </div>
+</div>
+  {% if teacher.supervisor.all %}<h4>Topics</h4>{% endif %}
+  <ol>
+  {% for topic in teacher.supervisor.all %}
+    <li>
+      <a href="{% url 'topic' topic.id %}">{{ topic.title }}</a>
+    </li>
+    {% empty %}
+      <p id="none">No topic.</p>
+  {% endfor %}
+  </ol>
+{% endblock %}

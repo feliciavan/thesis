@@ -1,0 +1,68 @@
+h4, #second  {
+  margin-bottom: 10px;
+}
+
+#userinfo {
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+b {
+  margin-right: 20px;
+}
+
+.topic_num {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#showtopic {
+  margin-top: 15px;
+}
+
+div[class="col-auto mr-auto"], .word, b, .topic_num {
+  font-size: 20px;
+}
+
+.topic {
+  margin-bottom: 30px;
+}
+
+table {
+  margin-top: 10px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.form-check-input {
+  margin-top: 6px;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+@media (min-width: 801px) {
+  #first::before {
+    content: "Here is the list of all your thesis topics.";
+  }
+  #second::before {
+    content: "The Students who choose this topic are listed as belows:";
+  }
+  #third::before {
+    content: "Sorry that no one has chosen this topic until now.";
+  }
+}
+
+@media (max-width: 800px) {
+  #first::before {
+    content: "Topic List:";
+  }
+  #second::before {
+    content: "Students:";
+  }
+  #third::before {
+    content: "No student.";
+  }
+
+}

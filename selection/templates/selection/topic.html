@@ -1,0 +1,66 @@
+{% extends "selection/base.html" %}
+{% load static %}
+
+{% block title %}
+  Topic {{ topic.id }}
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "selection/style_topic.css" %}">
+<script src="{% static "selection/topic.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-auto mr-auto"></div>
+  <div class="col-auto">
+    <a href="{% url 'myinfo' user.id %}" id="userinfo">{{user.username}}</a>
+    {% if flag == None or flag == 1 %}<a href="{% url 'index' %}" id="back">Back to full listing</a>{% endif %}<a href="{% url 'logout' %}" class="btn btn-secondary logout">log out</a>
+  </div>
+</div>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+      {{ message }}
+    </div>
+  {% endfor %}
+
+  <h5>Title: </h5>
+  <p>{{ topic.title }}</p>
+  <h5>Requirements: </h5>
+  <p>{{ topic.req }}</p>
+  <h5>Expected Output:  </h5>
+  <p>{{ topic.output }}</p>
+  <h5>Tool:  </h5>
+  <p>{{ topic.tool }}</p>
+  <h5>Supervisor: </h5>
+  <p><a href="{% url 'teacher' topic.giver.person.id %}">{{ topic.giver.person.first_name }} {{ topic.giver.person.last_name }}</a></p>
+  <form action="{% url 'reselect' topic.id %}">
+    <button type="submit" class="btn btn-info" id="rebutton">Reselect</button>
+  </form>
+{% else %}
+  <form action ="{% url 'topic' topic.id %}" method="post">
+    {% csrf_token %}
+    <h3>{{ topic.title }}</h3>
+    <h5>Requirements: </h5>
+    <p>{{ topic.req }}</p>
+    <h5>Expected Output:  </h5>
+    <p>{{ topic.output }}</p>
+    <h5>Tool:  </h5>
+    <p>{{ topic.tool }}</p>
+    {% if  flag == None %}
+    <h5>Supervisor: </h5>
+    <p><a href="{% url 'teacher' topic.giver.person.id %}">{{ topic.giver.person.first_name }} {{ topic.giver.person.last_name }}</a></p>
+    {% endif %}
+
+    {% if flag == None %}
+        <button type="submit" class="btn btn-info">Select</button>
+    {% elif flag == 1 and topic.taker.first == None %}
+        <button type="submit" class="btn btn-info">Delete</button>
+    {% endif %}
+  </form>
+
+{% endif %}
+
+{% endblock %}

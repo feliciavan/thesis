@@ -1,0 +1,41 @@
+{% extends "selection/base.html" %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "selection/style_login.css" %}">
+
+{% endblock %}
+
+{% block body %}
+<img src="{% static "selection/homepage.jpg" %}">
+<br>
+{% if message %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+<div class="card text-center">
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="card-body">
+      <div class="form-group">
+        <h5 class="card-title">Username</h5>
+        <input name="username"  type="text" class="form-control" placeholder="Enter username">
+      </div>
+      <div class="form-group">
+        <h5 class="card-title">Password</h5>
+        <input name="password" type="password" class="form-control" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

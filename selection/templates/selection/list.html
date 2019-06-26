@@ -1,0 +1,76 @@
+{% extends "selection/base.html" %}
+{% load static %}
+
+{% block title %}
+  Topic List
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "selection/style_list.css" %}">
+<script src="{% static "selection/list.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-auto mr-auto col-md-9">
+      <form action ="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="search SOTT" aria-describedby="button-addon2" name="search" id="search_input">
+          <div class="input-group-append">
+            <button class="btn btn-outline-dark" type="submit" id="button-addon2">search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-auto">
+      <a id="userinfo" href="{% url 'myinfo' user.id %}">{{user.username}}</a>
+      <a href="{% url 'logout' %}" class="btn btn-secondary logout">log out</a>
+    </div>
+  </div>
+
+  {% if message %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+
+  {% if results %}
+  <h5>Search Results:</h5>
+  <form action ="{% url 'index' %}" method="post">
+    {% csrf_token %}
+    {% for result in results %}
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="{{ result.title }}" name="topic">
+      <a href="{% url 'topic' result.id %}">{{ result.giver.person.first_name}} {{ result.giver.person.last_name}}. {{ result.title}}</a>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-info">Select</button>
+  </form>
+    <br>
+  {% endif %}
+
+  <span id="teacher_list"></span>
+  <ul>
+  {% for teacher in teachers %}
+  <li>
+    <a href="{% url 'teacher' teacher.person.id %}" class="teacher">{{ teacher.person.first_name }} {{ teacher.person.last_name}}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+  {% if topics %}<span id="topic_list"></span>{% endif %}
+  <form action ="{% url 'index' %}" method="post">
+    {% csrf_token %}
+    {% for topic in topics %}
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="{{ topic.title }}" name="topic">
+      <a href="{% url 'topic' topic.id %}">{{ topic.title }}</a>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-info">Select</button>
+  </form>
+{% endblock %}

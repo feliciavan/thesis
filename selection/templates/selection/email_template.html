@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{% static "selection/style_congrats.css" %}">
+</head>
+<body>
+<p>Dear {{student.person.first_name}} {{student.person.last_name}},</p>
+<p>We are sorry to inform you that you have to reselect your thesis topic, because more than one student has chosen the topic:</p>
+<p><b>{{topic}}</b>,</p>
+<p>and the teacher of this topic has chosen someone else.</p>
+<p>Please go to Selection of Thesis Topic (SOTT) Website to remake your choice.</p>
+<p>Thank you.<br/>
+Have a nice day.<br/>
+SOTT (Selection of Thesis Topic)<br/>
+https://selection-of-thesis-topic.herokuapp.com</p>
+</body>
+</html>

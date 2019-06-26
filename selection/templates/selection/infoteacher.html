@@ -1,0 +1,103 @@
+{% extends "selection/base.html" %}
+{% load static %}
+
+{% block title %}
+  Myinfo
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static "selection/style_teacher.css" %}">
+<script src="{% static "selection/infoteacher.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-auto mr-auto"></div>
+  <div class="col-auto">
+    <b id="userinfo">{{user.username}}</b>
+    <a href="{% url 'index' %}" id="back">Back to full listing</a><a href="{% url 'logout' %}" class="btn btn-secondary logout">log out</a>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-lg-5 col-sm-12 align-self-center">
+      {% if teacher.image %}
+      <img src="{{ teacher.image.url }}" alt="{{teacher.person.first_name}} {{teacher.person.last_name}}" title="{{teacher.person.first_name}} {{teacher.person.last_name}}">
+      {% else %}
+      <div id="word">No photo.</div>
+      {% endif %}
+    </div>
+    <div class="col-lg-7 col-sm-12 ">
+      <br>
+      <p><span class="attri">Name: </span>{{teacher.person.first_name}} {{teacher.person.last_name}}</p>
+      <p><span class="attri">Degree: </span>{{teacher.degree}}</p>
+      <p><span class="attri">Title: </span>{{teacher.title}}</p>
+      <p><span class="attri">Major: </span>{{teacher.major}}</p>
+      <p><span class="attri">Graduated University: </span>{{teacher.uni}}</p>
+      <p><span class="attri">Email: </span>{{teacher.person.email}}</p>
+    </div>
+  </div>
+
+  <br>
+  <div id="edit">
+    <div class="topic_num">Edit your profile</div>
+    <form enctype="multipart/form-data" method="post" action="{% url 'myinfo' user.id %}">
+      {% csrf_token %}
+      <div class="form-group">
+        Username
+        <input type="text" class="form-control" placeholder="{{teacher.person.username}}" name="uname" id="uname">
+      </div>
+      <div class="form-group">
+        Password
+        <input type="text" class="form-control" placeholder="New Password" name="pwd" id="pwd">
+      </div>
+      <div class="form-group">
+        Degree
+        {% if  teacher.degree %}
+        <input type="text" class="form-control" placeholder="{{teacher.degree}}" name="degree" id="degree">
+        {% else %}
+        <input type="text" class="form-control" placeholder="Degree" name="degree" id="degree">
+        {% endif %}
+      </div>
+      <div class="form-group">
+        Title
+        {% if  teacher.title %}
+        <input type="text" class="form-control" placeholder="{{teacher.title}}" name="title" id="title">
+        {% else %}
+        <input type="text" class="form-control" placeholder="Title" name="title" id="title">
+        {% endif %}
+      </div>
+      <div class="form-group">
+        Major
+        {% if  teacher.degree %}
+        <input type="text" class="form-control" placeholder="{{teacher.major}}" name="major" id="major">
+        {% else %}
+        <input type="text" class="form-control" placeholder="Major" name="major" id="major">
+        {% endif %}
+      </div>
+      <div class="form-group">
+        Graduated University
+        {% if  teacher.uni %}
+        <input type="text" class="form-control" placeholder="{{teacher.uni}}" name="uni" id="uni">
+        {% else %}
+        <input type="text" class="form-control" placeholder="Graduated University" name="uni" id="uni">
+        {% endif %}
+      </div>
+      <div class="form-group">
+        Email
+        {% if  teacher.person.email %}
+        <input type="text" class="form-control" placeholder="{{teacher.person.email}}" name="email" id="email">
+        {% else %}
+        <input type="text" class="form-control" placeholder="Email" name="email" id="email">
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <div id="img">Image</div>
+        <input type="file" class="form-control-file" name="image" id="image">
+      </div>
+
+      <button type="submit" class="btn btn-warning" id="button">Submit</button>
+
+  </form>
+  </div>
+{% endblock %}

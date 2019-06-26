@@ -1,0 +1,56 @@
+#userinfo {
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+p, li, #back, #word, #none {
+  font-size: 20px;
+}
+
+#none {
+  margin-left: -20px;
+}
+#back {
+  margin-right: 20px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+img {
+  width: 100%;
+  padding: 10px;
+}
+
+#word {
+  text-align: center;
+}
+h4 {
+  margin: 15px;
+}
+
+.topic_num {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+#button {
+  margin-top: 10px;
+}
+
+#edit {
+  margin: 15px;
+}
+
+.custom-file {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.attri {
+  font-weight: bold;
+  color: grey;
+}
