@@ -13,7 +13,7 @@ from django.db.models import Q
 import csv, traceback, os
 from django.contrib import messages
 from PIL import Image, ExifTags
-
+'''
 Group.objects.get_or_create(name="student")
 Group.objects.get_or_create(name="teacher")
 stuno = 1
@@ -32,7 +32,7 @@ with open('users.csv') as csvfile:
             stuno += 1
         else:
             Teacher.objects.get_or_create(person=obj)
-
+'''
 def index(request):
     # wrong user login info
     if not request.user.is_authenticated:
