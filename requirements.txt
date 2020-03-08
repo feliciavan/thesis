@@ -12,4 +12,3 @@ gunicorn
 boto3
 python-decouple
 whitenoise
-PIL
