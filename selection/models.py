@@ -24,7 +24,7 @@ class Teacher(models.Model):
 
 class Topic(models.Model):
     title = models.CharField(max_length=256, null=True)
-    req = models.CharField(max_length=256, null=True)
+    req = models.CharField(max_length=1024, null=True)
     output = models.CharField(max_length=256, null=True)
     tool = models.CharField(max_length=256, null=True)
     giver = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name="supervisor")
