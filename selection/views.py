@@ -28,11 +28,12 @@ with open('users.csv') as csvfile:
         obj.set_password(row['password'])
         obj.save()
         if row['group']=="student":
-            Student.objects.get_or_create(person=obj,number=str(stuno).zfill(3), class_name="Commun. Eng.", gpa = row['gpa'])
+            Student.objects.get_or_create(person=obj,number=str(stuno).zfill(3), class_name="Computer Science", gpa = row['gpa'])
             stuno += 1
         else:
             Teacher.objects.get_or_create(person=obj)
 '''
+
 def index(request):
     # wrong user login info
     if not request.user.is_authenticated:
@@ -230,7 +231,7 @@ def students(request, topic_id):
 
     student = Student.objects.get(number=student_num)
     #send the chosen student an email
-    subject, from_email, to = 'Here IS Your Thesis Topic', 'SOTT<sottbyfelicia@qq.com>', student.person.email
+    subject, from_email, to = 'Thesis Topic Confirmation Letter', 'SOTT<sottbyfelicia@qq.com>', student.person.email
     html_content = render_to_string('selection/congrats_template.html', {'student':student, 'topic':topic.title, 'teacher':topic.giver}) # render with dynamic value
     text_content = strip_tags(html_content) # Strip the html tag. So people can see the pure text at least.
     # create the email, and attach the HTML version as well.
@@ -240,7 +241,7 @@ def students(request, topic_id):
 
     for one in topic.taker.all():
         if one != student:
-            subject, from_email, to = 'Please Reselect Your Thesis Topic', 'SOTT<sottbyfelicia@qq.com>', one.person.email
+            subject, from_email, to = 'Please reselect your thesis topic.', 'SOTT<sottbyfelicia@qq.com>', one.person.email
 
             html_content = render_to_string('selection/email_template.html', {'student':one, 'topic':topic.title}) # render with dynamic value
             text_content = strip_tags(html_content) # Strip the html tag. So people can see the pure text at least.
@@ -377,3 +378,15 @@ def myinfo(request, person_id):
                 "student": Student.objects.get(person=person),
             }
             return render(request, "selection/infostudent.html", context)
+
+def database(request):
+    User.objects.all().delete()
+    Group.objects.all().delete()
+    Student.objects.all().delete()
+    Teacher.objects.all().delete()
+    Topic.objects.all().delete()
+    val = os.system('python3 manage.py loaddata i.json')
+    if not val:
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        raise Http404("Database Recovery Failure")

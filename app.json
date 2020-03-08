@@ -1,7 +1,0 @@
-{
-  "name": "SOTT",
-  "description": "a thesis topic selection website",
-  "repository": "https://github.com/feliciavan/thesis.git",
-  "keywords": ["python", "django" ],
-  "addons": [ "heroku-postgresql" ],
-}

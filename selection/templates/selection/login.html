@@ -38,4 +38,16 @@ Login
     </div>
   </form>
 </div>
+<br>
+<center>
+<div>
+  For the first use, please click reset button to initialize to the original state.
+  <form action="{% url 'database' %}" method="get">
+  <button class="btn btn-light">reset</button>
+  </form>
+</div>
+<div>As a teacher, you can use the account <b>harry</b> with the password <b>thesis123</b>.</div>
+<div>As a student, you can use the account <b>serena</b> with the password <b>thesis123</b>. </div>
+<div>You can also create your own account.</div>
+</center>
 {% endblock %}

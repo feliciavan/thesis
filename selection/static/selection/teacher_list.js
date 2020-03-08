@@ -49,7 +49,7 @@ document.querySelector('#tool').onkeyup = () => {
 function email() {
   var els = document.querySelectorAll('input:checked');
   var content = els[0].value;
-  alert(`You have chosen Student No. ${content}. All of the selected and the nonselected students will receive notification emails.`);
+  alert(`You have chosen Student No. ${content}. All the involved students will receive notification emails.`);
 }
 
 function logout() {
