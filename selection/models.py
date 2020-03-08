@@ -23,10 +23,10 @@ class Teacher(models.Model):
         return f"{self.person.username} {self.title}"
 
 class Topic(models.Model):
-    title = models.CharField(max_length=256, null=True)
+    title = models.CharField(max_length=1024, null=True)
     req = models.CharField(max_length=1024, null=True)
-    output = models.CharField(max_length=256, null=True)
-    tool = models.CharField(max_length=256, null=True)
+    output = models.CharField(max_length=1024, null=True)
+    tool = models.CharField(max_length=1024, null=True)
     giver = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name="supervisor")
     taker = models.ManyToManyField(Student, blank=True, related_name="author")
 
