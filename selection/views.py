@@ -12,7 +12,7 @@ import datetime
 from django.db.models import Q
 import csv, traceback, os
 from django.contrib import messages
-from PIL import Image, ExifTags
+import Image, ExifTags
 '''
 Group.objects.get_or_create(name="student")
 Group.objects.get_or_create(name="teacher")
