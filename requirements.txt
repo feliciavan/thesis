@@ -1,5 +1,5 @@
 dj-database-url
-Django
+Django==2.2.10
 django-heroku
 ez-setup
 olefile
