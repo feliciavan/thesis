@@ -385,7 +385,7 @@ def database(request):
     Student.objects.all().delete()
     Teacher.objects.all().delete()
     Topic.objects.all().delete()
-    val = os.system('python3 manage.py loaddata i.json')
+    val = os.system('python3 manage.py loaddata thesis.json')
     if not val:
         return HttpResponseRedirect(reverse("index"))
     else:
