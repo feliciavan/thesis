@@ -47,7 +47,7 @@ table {
     content: "Here is the list of all your thesis topics.";
   }
   #second::before {
-    content: "The Students who choose this topic are listed as belows:";
+    content: "The students who choose this topic are listed as follows.";
   }
   #third::before {
     content: "Sorry that no one has chosen this topic until now.";
