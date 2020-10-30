@@ -3,7 +3,7 @@ Django
 django-heroku
 ez-setup
 olefile
-psycopg2
+psycopg2-binary
 python-dotenv
 pytz
 sqlparse
