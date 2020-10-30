@@ -26,7 +26,7 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = 'yb+99$et(r0l&1rbehk)pk=tz95rd++ydq#2-ex$j1yci_y$1f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # Application definition
@@ -106,6 +106,53 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'logfile':{
+            'level':'DEBUG',
+            'class':'logging.handlers.WatchedFileHandler',
+            'filename': "/Users/fanlixing/Documents/project/gunicorn_log/selection.log",
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['logfile'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['logfile'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
+        'vis': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -154,7 +201,7 @@ MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-ALLOWED_HOSTS = ['selection-of-thesis-topic.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['selection-of-thesis-topic.herokuapp.com/', '127.0.0.1', 'localhost', '47.56.188.40']
 
 # This should already be in your settings.py
 django_heroku.settings(locals())

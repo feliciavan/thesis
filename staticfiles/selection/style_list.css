@@ -1,0 +1,44 @@
+#userinfo {
+  font-size: 20px;
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+li {
+  margin-left: -20px;
+}
+
+#topic_list, input + a, #teacher_list, .teacher, #none {
+  font-size: 20px;
+}
+
+div[class="form-check"] {
+  margin-top: 5px;
+}
+
+button[class="btn btn-info"] {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.form-check-input {
+  margin-top: 6px;
+}
+
+@media (min-width: 801px) {
+  #teacher_list::before {
+    content: "Here is the list of all teachers.";
+  }
+  #topic_list::before {
+    content: "Here is the list of all thesis topics.";
+  }
+}
+
+@media (max-width: 800px) {
+  #teacher_list::before {
+    content: "Teacher List:";
+  }
+  #topic_list::before {
+    content: "Here is the list of all thesis topics.";
+  }
+}
